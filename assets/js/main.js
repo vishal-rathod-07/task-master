@@ -2,7 +2,6 @@
 const todoForm = document.querySelector(".todo-form");
 const todoInput = document.querySelector(".todo-input");
 const todoItemsList = document.querySelector(".todo-items");
-const deleteButtons = document.querySelectorAll(".delete-button");
 
 // array which stores todo
 let todos = [];
@@ -23,7 +22,7 @@ function addTodo(item) {
     };
 
     todos.push(todo);
-    console.log(todos);
+    // console.log(todos);
     addToLocalStorage(todos);
 
     todoInput.value = ""; // for clearing input after adding todo
@@ -36,37 +35,57 @@ function addToLocalStorage(todos) {
   displayTodos(todos);
 }
 
+// Getting data from localStorage
+function getFromLocalStorage() {
+  const localtodos = localStorage.getItem("todos");
+  console.table(localtodos);
+
+  if (localtodos) {
+    todos = JSON.parse(localtodos);
+    console.table(todos);
+
+    displayTodos(todos);
+  }
+}
+
 // Displays todos
 function displayTodos(todos) {
   todoItemsList.innerHTML = "";
   todos.forEach((item) => {
     const checked = item.completed ? "checked" : null;
-    if (item.completed === true) {
-      li.classList.add("checked");
-    }
-
     const li = document.createElement("li");
     li.setAttribute("class", "item");
     li.setAttribute("data-key", item.id);
+    if (item.completed === true) {
+      li.classList.add("checked");
+    }
     li.innerHTML = `
-    <input type="checkbox" class="checkbox" ${checked}>
-    <label class="item-text">${item.name}</label>
-    <button class="delete-button">
-          <img class="delete-button" src="assets/delete.png" style="height: 25px; width: 25px" />
+    <input id="checkbox" class="checkbox" type="checkbox"  ${checked} onclick="toggleCheckbox(this)">
+    <label for="checkbox" class="item-name">${item.name}</label>
+    <button class="delete-button" onclick="deleteTodo(this)">
+          <img class="" src="assets/images/delete.png" style="height: 25px; width: 25px" />
     </button>
     `;
     todoItemsList.appendChild(li);
   });
 }
 
-// Getting data from localStorage
-function getFromLocalStorage() {
-  const todos = localStorage.getItem("todos");
-  return JSON.parse(todos);
+getFromLocalStorage();
+
+//Toggle Checkbox and store updated todos in local storage
+function toggleCheckbox(e) {
+  const id = Number(e.parentElement.dataset.key);
+  console.log("checkbox:" + id);
+  const todo = todos.find((todo) => todo.id === id);
+  // console.log(todos);
+  todo.completed = !todo.completed;
+  addToLocalStorage(todos);
 }
 
 // Delete todo from array and store updated todos in local storage
-function deleteTodo(id) {
+function deleteTodo(e) {
+  const id = Number(e.parentElement.dataset.key);
+  console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
 }

@@ -2,10 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
 
 /* global variables */
-
 :root {
   --main-color: #ffc107;
 }
+/* global variables ends */
 
 /* common styles */
 * {
@@ -107,11 +107,11 @@ h1 {
   margin: 1rem;
 }
 
-.item-text {
+.item-name {
   width: 100%;
-  padding-left: 10px;
-  border-right: 1px solid #f4f8ff;
-  border-left: 1px solid #f4f8ff;
+  padding: 0 10px;
+  border-right: 1px solid #d5e4ff;
+  border-left: 1px solid #d5e4ff;
   line-height: 45px;
 }
 
@@ -126,6 +126,10 @@ h1 {
 /* applied when the todo item is checked */
 .checked {
   text-decoration: line-through;
+}
+
+.checked .item-name {
+  background-color: #f9f9f9;
 }
 
 /* todo-items style ends */
