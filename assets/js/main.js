@@ -52,7 +52,7 @@ function displayTodos(todos) {
     <input type="checkbox" class="checkbox" ${checked}>
     <label class="item-text">${item.name}</label>
     <button class="delete-button">
-          <img class="delete-button" src="delete.png" style="height: 25px; width: 25px" />
+          <img class="delete-button" src="assets/delete.png" style="height: 25px; width: 25px" />
     </button>
     `;
     todoItemsList.appendChild(li);
