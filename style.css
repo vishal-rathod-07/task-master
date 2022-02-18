@@ -63,8 +63,9 @@ h1 {
 }
 
 .add-button {
-  background-color: #fff;
-  border: 1px solid #fff;
+  background: linear-gradient(#2f6097, #54abfd);
+  border: 1px solid #4a9efd;
+  color: #fff;
   border-radius: 5px;
   padding: 7px;
   font-size: 1.2rem;
@@ -86,6 +87,7 @@ h1 {
   font-size: 1.1rem;
   border-bottom: 1px solid #f4f4f4;
   display: flex;
+  overflow: hidden;
 }
 
 .item:first-child {
@@ -118,6 +120,7 @@ h1 {
   padding: 0.5em;
   display: flex;
   align-items: center;
+  background: #fff;
 }
 
 /* applied when the todo item is checked */
