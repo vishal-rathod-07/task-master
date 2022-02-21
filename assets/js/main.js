@@ -36,19 +36,6 @@ function addToLocalStorage(todos) {
   displayTodos(todos);
 }
 
-// Getting data from localStorage
-function getFromLocalStorage() {
-  const localtodos = localStorage.getItem("todos");
-  console.table(localtodos);
-
-  if (localtodos) {
-    todos = JSON.parse(localtodos);
-    console.table(todos);
-
-    displayTodos(todos);
-  }
-}
-
 // Displays todos
 function displayTodos(todos) {
   todoItemsList.innerHTML = "";
@@ -69,6 +56,19 @@ function displayTodos(todos) {
     `;
     todoItemsList.appendChild(li);
   });
+}
+
+// Getting data from localStorage
+function getFromLocalStorage() {
+  const localtodos = localStorage.getItem("todos");
+  console.table(localtodos);
+
+  if (localtodos) {
+    todos = JSON.parse(localtodos);
+    console.table(todos);
+
+    displayTodos(todos);
+  }
 }
 
 getFromLocalStorage();
