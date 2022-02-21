@@ -27,6 +27,8 @@ function addTodo(item) {
     addToLocalStorage(todos);
 
     todoInput.value = ""; // for clearing input after adding todo
+  } else {
+    showSnackbar();
   }
 }
 
@@ -89,4 +91,15 @@ function deleteTodo(e) {
   console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
+}
+
+// Adds classname show to snackbar
+function showSnackbar() {
+  var x = document.getElementById("snackbar");
+
+  x.className = "show";
+
+  setTimeout(function () {
+    x.className = x.className.replace("show", "");
+  }, 4000);
 }
