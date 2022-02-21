@@ -50,6 +50,8 @@ h1 {
 
 .todo-form {
   margin: 40px 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .todo-input {
@@ -65,7 +67,8 @@ h1 {
 }
 
 .add-button {
-  width: 38px;
+  width: 41px;
+  line-height: 25px;
   background: linear-gradient(#2f6097, #54abfd);
   border: 1px solid #4a9efd;
   color: #fff;
