@@ -48,8 +48,8 @@ function displayTodos(todos) {
       li.classList.add("checked");
     }
     li.innerHTML = `
-    <input id="checkbox" class="checkbox" type="checkbox"  ${checked} onclick="toggleCheckbox(this)">
-    <label for="checkbox" class="item-name">${item.name}</label>
+    <input id="checkbox${item.id}" class="checkbox" type="checkbox"  ${checked} onclick="toggleCheckbox(this)">
+    <label for="checkbox${item.id}" class="item-name">${item.name}</label>
     <button class="delete-button" onclick="deleteTodo(this)">
           <img class="" src="assets/images/delete.png" style="height: 25px; width: 25px" />
     </button>
