@@ -13,6 +13,7 @@ todoForm.addEventListener("submit", (event) => {
   addTodo(todoInput.value);
 });
 
+// Adding todo data in array
 function addTodo(item) {
   if (item !== "") {
     const todo = {
