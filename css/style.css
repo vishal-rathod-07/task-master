@@ -3,7 +3,8 @@
 
 /* global variables */
 :root {
-  --main-color: #ffc107;
+  --main-color: #ffc600;
+  --box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.2);
 }
 /* global variables ends */
 
@@ -52,6 +53,7 @@ h1 {
 }
 
 .todo-input {
+  font-family: "Sora", sans-serif;
   width: 250px;
   border: none;
   outline: none;
@@ -59,17 +61,18 @@ h1 {
   padding: 10px;
   margin-right: 10px;
   font-size: 1rem;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--box-shadow);
 }
 
 .add-button {
+  width: 38px;
   background: linear-gradient(#2f6097, #54abfd);
   border: 1px solid #4a9efd;
   color: #fff;
   border-radius: 5px;
   padding: 7px;
   font-size: 1.2rem;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--box-shadow);
 }
 
 /* todo-form style ends */
@@ -77,7 +80,7 @@ h1 {
 /* todo-items */
 .todo-items {
   min-width: 350px;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--box-shadow);
   border-radius: 7px;
 }
 
