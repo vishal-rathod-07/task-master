@@ -9,7 +9,7 @@ let todos = [];
 // eventListener listen for submit event
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log(todoInput.value);
+  // console.log(todoInput.value);
   addTodo(todoInput.value.trim());
 });
 
@@ -42,6 +42,8 @@ function addToLocalStorage(todos) {
 function displayTodos(todos) {
   todoItemsList.innerHTML = "";
   todos.forEach((item) => {
+    const itemId = item.id;
+    // console.log(itemId);
     const checked = item.completed ? "checked" : null;
     const li = document.createElement("li");
     li.setAttribute("class", "item");
@@ -50,13 +52,26 @@ function displayTodos(todos) {
       li.classList.add("checked");
     }
     li.innerHTML = `
-    <input id="checkbox${item.id}" class="checkbox" type="checkbox"  ${checked} onclick="toggleCheckbox(this)">
-    <label for="checkbox${item.id}" class="item-name">${item.name}</label>
-    <button class="delete-button" onclick="deleteTodo(this)">
+    <input id="checkbox${itemId}" class="checkbox" type="checkbox"  ${checked}>
+    <label for="checkbox${itemId}" class="item-name">${item.name}</label>
+    <button id="delete${itemId}" class="delete-button" >
           <img class="delete-icon" src="assets/images/delete.png" />
     </button>
     `;
     todoItemsList.appendChild(li);
+
+    document
+      .querySelector(`#checkbox${item.id}`)
+      .addEventListener("click", (e) => {
+        // console.log(e);
+        toggleCheckbox(e);
+      });
+    document
+      .querySelector(`#delete${item.id}`)
+      .addEventListener("click", (e) => {
+        // console.log(e);
+        deleteTodo(e);
+      });
   });
 }
 
@@ -76,22 +91,31 @@ function getFromLocalStorage() {
 getFromLocalStorage();
 
 //Toggle Checkbox and store updated todos in local storage
-const toggleCheckbox = function toggleCheckbox(e) {
-  const id = Number(e.parentElement.dataset.key);
+function toggleCheckbox(e) {
+  const id = Number(e.srcElement.parentElement.dataset.key);
   console.log("checkbox:" + id);
   const todo = todos.find((todo) => todo.id === id);
   // console.log(todos);
   todo.completed = !todo.completed;
   addToLocalStorage(todos);
-};
+}
 
 // Delete todo from array and store updated todos in local storage
-const deleteTodo = function deleteTodo(e) {
-  const id = Number(e.parentElement.dataset.key);
+function deleteTodo(e) {
+  // console.log(e.srcElement.className);
+  let id;
+  if (e.srcElement.className === "delete-button") {
+    id = Number(e.srcElement.parentElement.dataset.key);
+    // console.log(id);
+  }
+  if (e.srcElement.className === "delete-icon") {
+    id = Number(e.srcElement.parentElement.parentElement.dataset.key);
+    // console.log(id);
+  }
   console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
-};
+}
 
 // Adds classname show to snackbar
 function showSnackbar() {
