@@ -130,6 +130,11 @@ h1 {
   background: #fff;
 }
 
+.delete-icon {
+  height: 25px;
+  width: 25px;
+}
+
 /* applied when the todo item is checked */
 .checked {
   text-decoration: line-through;
