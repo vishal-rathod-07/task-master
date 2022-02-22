@@ -10,7 +10,7 @@ let todos = [];
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
   console.log(todoInput.value);
-  addTodo(todoInput.value);
+  addTodo(todoInput.value.trim());
 });
 
 // Adding todo data in array
@@ -53,7 +53,7 @@ function displayTodos(todos) {
     <input id="checkbox${item.id}" class="checkbox" type="checkbox"  ${checked} onclick="toggleCheckbox(this)">
     <label for="checkbox${item.id}" class="item-name">${item.name}</label>
     <button class="delete-button" onclick="deleteTodo(this)">
-          <img class="" src="assets/images/delete.png" style="height: 25px; width: 25px" />
+          <img class="delete-icon" src="assets/images/delete.png" />
     </button>
     `;
     todoItemsList.appendChild(li);
@@ -63,11 +63,11 @@ function displayTodos(todos) {
 // Getting data from localStorage
 function getFromLocalStorage() {
   const localtodos = localStorage.getItem("todos");
-  console.table(localtodos);
+  // console.table(localtodos);
 
   if (localtodos) {
     todos = JSON.parse(localtodos);
-    console.table(todos);
+    // console.table(todos);
 
     displayTodos(todos);
   }
@@ -76,22 +76,22 @@ function getFromLocalStorage() {
 getFromLocalStorage();
 
 //Toggle Checkbox and store updated todos in local storage
-function toggleCheckbox(e) {
+const toggleCheckbox = function toggleCheckbox(e) {
   const id = Number(e.parentElement.dataset.key);
   console.log("checkbox:" + id);
   const todo = todos.find((todo) => todo.id === id);
   // console.log(todos);
   todo.completed = !todo.completed;
   addToLocalStorage(todos);
-}
+};
 
 // Delete todo from array and store updated todos in local storage
-function deleteTodo(e) {
+const deleteTodo = function deleteTodo(e) {
   const id = Number(e.parentElement.dataset.key);
   console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
-}
+};
 
 // Adds classname show to snackbar
 function showSnackbar() {
