@@ -57,12 +57,12 @@ function displayTodos(todos) {
     todoItemsList.appendChild(li);
 
     document
-      .querySelector(`#checkbox${item.id}`)
+      .querySelector(`#checkbox${itemId}`)
       .addEventListener("click", (e) => {
         toggleCheckbox(e);
       });
     document
-      .querySelector(`#delete${item.id}`)
+      .querySelector(`#delete${itemId}`)
       .addEventListener("click", (e) => {
         deleteTodo(e);
       });
@@ -83,7 +83,7 @@ getFromLocalStorage();
 //Toggle Checkbox and store updated todos in local storage
 function toggleCheckbox(e) {
   const id = Number(e.target.dataset.key);
-  console.log("checkbox:" + id);
+  // console.log("checkbox:" + id);
   const todo = todos.find((todo) => todo.id === id);
   todo.completed = !todo.completed;
   addToLocalStorage(todos);
@@ -92,7 +92,7 @@ function toggleCheckbox(e) {
 // Delete todo from array and store updated todos in local storage
 function deleteTodo(e) {
   const id = Number(e.target.dataset.key);
-  console.log("deleted:" + id);
+  // console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
 }
