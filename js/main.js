@@ -9,7 +9,6 @@ let todos = [];
 // eventListener listen for submit event
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  // console.log(todoInput.value);
   addTodo(todoInput.value.trim());
 });
 
@@ -23,7 +22,6 @@ function addTodo(item) {
     };
 
     todos.push(todo);
-    // console.log(todos);
     addToLocalStorage(todos);
 
     todoInput.value = ""; // for clearing input after adding todo
@@ -43,19 +41,17 @@ function displayTodos(todos) {
   todoItemsList.innerHTML = "";
   todos.forEach((item) => {
     const itemId = item.id;
-    // console.log(itemId);
     const checked = item.completed ? "checked" : null;
     const li = document.createElement("li");
     li.setAttribute("class", "item");
-    li.setAttribute("data-key", item.id);
     if (item.completed === true) {
       li.classList.add("checked");
     }
     li.innerHTML = `
-    <input id="checkbox${itemId}" class="checkbox" type="checkbox"  ${checked}>
+    <input id="checkbox${itemId}" data-key="${itemId}" class="checkbox" type="checkbox"  ${checked}>
     <label for="checkbox${itemId}" class="item-name">${item.name}</label>
-    <button id="delete${itemId}" class="delete-button" >
-          <img class="delete-icon" src="assets/images/delete.png" />
+    <button id="delete${itemId}" data-key="${itemId}" class="delete-button" >
+          <img class="delete-icon" data-key="${itemId}" src="assets/images/delete.png" />
     </button>
     `;
     todoItemsList.appendChild(li);
@@ -63,13 +59,11 @@ function displayTodos(todos) {
     document
       .querySelector(`#checkbox${item.id}`)
       .addEventListener("click", (e) => {
-        // console.log(e);
         toggleCheckbox(e);
       });
     document
       .querySelector(`#delete${item.id}`)
       .addEventListener("click", (e) => {
-        // console.log(e);
         deleteTodo(e);
       });
   });
@@ -78,12 +72,8 @@ function displayTodos(todos) {
 // Getting data from localStorage
 function getFromLocalStorage() {
   const localtodos = localStorage.getItem("todos");
-  // console.table(localtodos);
-
   if (localtodos) {
     todos = JSON.parse(localtodos);
-    // console.table(todos);
-
     displayTodos(todos);
   }
 }
@@ -92,26 +82,16 @@ getFromLocalStorage();
 
 //Toggle Checkbox and store updated todos in local storage
 function toggleCheckbox(e) {
-  const id = Number(e.srcElement.parentElement.dataset.key);
+  const id = Number(e.target.dataset.key);
   console.log("checkbox:" + id);
   const todo = todos.find((todo) => todo.id === id);
-  // console.log(todos);
   todo.completed = !todo.completed;
   addToLocalStorage(todos);
 }
 
 // Delete todo from array and store updated todos in local storage
 function deleteTodo(e) {
-  // console.log(e.srcElement.className);
-  let id;
-  if (e.srcElement.className === "delete-button") {
-    id = Number(e.srcElement.parentElement.dataset.key);
-    // console.log(id);
-  }
-  if (e.srcElement.className === "delete-icon") {
-    id = Number(e.srcElement.parentElement.parentElement.dataset.key);
-    // console.log(id);
-  }
+  const id = Number(e.target.dataset.key);
   console.log("deleted:" + id);
   todos = todos.filter((todo) => todo.id !== id);
   addToLocalStorage(todos);
