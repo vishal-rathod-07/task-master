@@ -9,7 +9,18 @@ let todos = [];
 // eventListener listen for submit event
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  addTodo(todoInput.value.trim());
+  var lt = /</g,
+    gt = />/g,
+    ap = /'/g,
+    ic = /"/g;
+  value = todoInput.value
+    .trim()
+    .toString()
+    .replace(lt, "&lt;")
+    .replace(gt, "&gt;")
+    .replace(ap, "&#39;")
+    .replace(ic, "&#34;");
+  addTodo(value);
 });
 
 // Adding todo data in array
@@ -50,7 +61,7 @@ function displayTodos(todos) {
     li.innerHTML = `
     <input id="checkbox${itemId}" data-key="${itemId}" class="checkbox" type="checkbox"  ${checked}>
     <label for="checkbox${itemId}" class="item-name">${item.name}</label>
-    <button id="delete${itemId}" data-key="${itemId}" class="delete-button" >
+    <button id="delete${itemId}" data-key="${itemId}" class="delete-button" title='Remove Task From List' >
           <img class="delete-icon" data-key="${itemId}" src="assets/images/delete.png" />
     </button>
     `;
